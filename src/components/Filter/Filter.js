@@ -1,6 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getFilter } from "../../app/selectors";
+import { setFilter } from "../../app/reducer";
+import { Input } from "@material-ui/core";
 
 const Filter = () => {
   const { filter } = useSelector(getFilter);
@@ -9,14 +11,16 @@ const Filter = () => {
   return (
     <label>
       Find contacts by name:
-      <input
+      <Input
+        label="Search"
         type="text"
         name="filter"
         value={filter}
         onChange={(e) => {
-          dispatch({ type: "SET_FILTER", payload: e.target.value });
+          dispatch(setFilter(e.target.value));
         }}
         className="filter-input"
+        variant="Outlined"
       />
     </label>
   );

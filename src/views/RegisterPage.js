@@ -1,12 +1,17 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { register } from "../app/operations";
+import { TextField, Button } from "@material-ui/core";
 
 const styles = {
   form: {
     width: 320,
+    marginRight: "auto",
+    marginLeft: "auto",
+    marginTop: 50,
   },
-  label: {
+  input: {
     display: "flex",
     flexDirection: "column",
     marginBottom: 15,
@@ -34,7 +39,9 @@ const RegisterPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(authOperations.register({ name, email, password }));
+    dispatch(register({ name, email, password })).catch((error) =>
+      console.log(error.message)
+    );
     setName("");
     setEmail("");
     setPassword("");
@@ -42,35 +49,44 @@ const RegisterPage = () => {
 
   return (
     <>
-      <h1>Register</h1>
-
       <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
-        <label style={styles.label}>
-          Имя
-          <input type="text" name="name" value={name} onChange={handleChange} />
-        </label>
+        <TextField
+          label="Name"
+          variant="outlined"
+          size="small"
+          style={styles.input}
+          type="text"
+          name="name"
+          value={name}
+          onChange={handleChange}
+        />
 
-        <label style={styles.label}>
-          Почта
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-          />
-        </label>
+        <TextField
+          label="Email"
+          variant="outlined"
+          size="small"
+          style={styles.input}
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+        />
 
-        <label style={styles.label}>
-          Пароль
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-          />
-        </label>
+        <TextField
+          label="Password"
+          variant="outlined"
+          size="small"
+          style={styles.input}
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+          pattern="[0-9a-fA-F]{8,16}"
+        />
 
-        <button type="submit">Зарегистрироваться</button>
+        <Button type="submit" color="primary" variant="contained" size="small">
+          Register
+        </Button>
       </form>
     </>
   );

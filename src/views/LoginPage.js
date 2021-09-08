@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { login } from "../app/operations";
+import { TextField, Button } from "@material-ui/core";
 
 const styles = {
   form: {
     width: 320,
+    marginRight: "auto",
+    marginLeft: "auto",
+    marginTop: 50,
   },
-  label: {
+  input: {
     display: "flex",
     flexDirection: "column",
     marginBottom: 15,
@@ -30,37 +35,39 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(authOperations.logIn({ email, password }));
+    dispatch(login({ email, password }));
     setEmail("");
     setPassword("");
   };
 
   return (
     <div>
-      <h1>Страница логина</h1>
-
       <form onSubmit={handleSubmit} style={styles.form} autoComplete="off">
-        <label style={styles.label}>
-          Почта
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-          />
-        </label>
+        <TextField
+          label="Email"
+          variant="outlined"
+          size="small"
+          type="email"
+          name="email"
+          value={email}
+          onChange={handleChange}
+          style={styles.input}
+        />
 
-        <label style={styles.label}>
-          Пароль
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-          />
-        </label>
+        <TextField
+          label="Password"
+          variant="outlined"
+          size="small"
+          type="password"
+          name="password"
+          value={password}
+          onChange={handleChange}
+          style={styles.input}
+        />
 
-        <button type="submit">Войти</button>
+        <Button type="submit" color="primary" variant="contained" size="small">
+          Login
+        </Button>
       </form>
     </div>
   );

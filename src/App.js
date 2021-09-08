@@ -1,8 +1,7 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-// import ContactForm from "./components/ContactForm/ContactForm";
-// import ContactsList from "./components/ContactsList/ContactsList";
-// import Filter from "./components/Filter/Filter";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { fetchCurrentUser } from "./app/operations";
 import "./App.css";
 
 import HomePage from "./views/HomePage";
@@ -11,25 +10,35 @@ import LoginPage from "./views/LoginPage";
 import RegisterPage from "./views/RegisterPage";
 
 import NavigationBar from "./components/NavigationBar/NavigationBar";
+import { getIsLoggedIn } from "./app/selectors";
+import { Container } from "@material-ui/core";
 
-const App = () => (
-  <div className="container">
-    <NavigationBar />
+const App = () => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(getIsLoggedIn);
 
-    <Switch>
-      <Route exact path="/" component={HomePage} />
-      <Route path="/register" component={RegisterPage} />
-      <Route path="/login" component={LoginPage} />
-      <Route path="/contacts" component={ContactsPage} />
-    </Switch>
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
 
-    {/* <h1>Phonebook</h1>
-    <ContactForm />
+  return (
+    <Container className="container">
+      <NavigationBar />
 
-    <h2>Contacts</h2>
-    <Filter />
-    <ContactsList /> */}
-  </div>
-);
+      <Switch>
+        <Route exact path="/" component={HomePage} />
+        <Route path="/register">
+          {!isLoggedIn ? <RegisterPage /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/login">
+          {!isLoggedIn ? <LoginPage /> : <Redirect to="/" />}
+        </Route>
+        <Route path="/contacts">
+          {isLoggedIn ? <ContactsPage /> : <Redirect to="/" />}
+        </Route>
+      </Switch>
+    </Container>
+  );
+};
 
 export default App;

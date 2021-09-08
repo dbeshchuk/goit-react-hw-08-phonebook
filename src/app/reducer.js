@@ -1,63 +1,50 @@
-import { createReducer, createSlice } from "@reduxjs/toolkit";
-import { setItems, setFilter, deleteItem } from "./actions";
-import { register, logOut, logIn, fetchCurrentUser } from "./operations";
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  register,
+  logout,
+  login,
+  fetchCurrentUser,
+  getContacts,
+} from "./operations";
 
-const defaultContactsState = {
+const defaultState = {
   contacts: {
     items: [],
     filter: "",
   },
-};
-
-const defaultAuthState = {
   user: { name: null, email: null },
   token: null,
   isLoggedIn: false,
 };
 
-export const contactsReducer = createReducer(defaultContactsState, {
-  [setItems](state, action) {
-    return {
-      ...state,
-      contacts: { items: [...action.payload], filter: state.contacts.filter },
-    };
+export const mainSlice = createSlice({
+  name: "main",
+  initialState: defaultState,
+  reducers: {
+    setItems: (state, action) => {
+      state.contacts.items = [...action.payload];
+    },
+    setFilter: (state, action) => {
+      state.contacts.filter = action.payload;
+    },
+    deleteItem: (state, action) => {
+      state.contacts.items = state.contacts.items.filter(
+        (item) => item.id !== action.payload
+      );
+    },
   },
-
-  [setFilter](state, action) {
-    return {
-      ...state,
-      contacts: { items: [...state.contacts.items], filter: action.payload },
-    };
-  },
-
-  [deleteItem](state, action) {
-    return {
-      ...state,
-      contacts: {
-        items: state.contacts.items.filter(
-          (item) => item.id !== action.payload
-        ),
-        filter: state.contacts.filter,
-      },
-    };
-  },
-});
-
-export const authSlice = createSlice({
-  name: "auth",
-  defaultAuthState,
   extraReducers: {
     [register.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
-    [logIn.fulfilled](state, action) {
+    [login.fulfilled](state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
-    [logOut.fulfilled](state, action) {
+    [logout.fulfilled](state, action) {
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
@@ -66,5 +53,10 @@ export const authSlice = createSlice({
       state.user = action.payload;
       state.isLoggedIn = true;
     },
+    [getContacts.fulfilled](state, action) {
+      state.contacts.items = action.payload;
+    },
   },
 });
+
+export const { setItems, setFilter, deleteItem } = mainSlice.actions;

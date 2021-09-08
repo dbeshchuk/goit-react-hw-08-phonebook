@@ -1,5 +1,9 @@
 import React from "react";
 
-const HomePage = () => <h1>Home</h1>;
+const style = {
+  marginTop: 100,
+};
+
+const HomePage = () => <h2 style={style}>Welcome to Phonebook App</h2>;
 
 export default HomePage;
