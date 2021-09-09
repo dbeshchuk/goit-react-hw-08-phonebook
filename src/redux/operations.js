@@ -58,6 +58,7 @@ export const fetchCurrentUser = createAsyncThunk(
       return data;
     } catch (error) {
       console.log(error.message);
+      return thunkAPI.rejectWithValue();
     }
   }
 );
@@ -73,7 +74,9 @@ export const getContacts = createAsyncThunk("getContacts", async () => {
 
 export const postContact = createAsyncThunk("postContact", async (contact) => {
   try {
-    await axios.post(`/contacts`, contact);
+    const { data } = await axios.post(`/contacts`, contact);
+    console.log(data);
+    return data;
   } catch (error) {
     console.log(error.message);
   }

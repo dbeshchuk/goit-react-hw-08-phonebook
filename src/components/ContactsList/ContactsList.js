@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ContactItem from "../ContactItem/ContactItem";
 import { useDispatch, useSelector } from "react-redux";
-import { getFilteredContacts } from "../../app/selectors";
-import { deleteItem } from "../../app/reducer";
-import { deleteContact, getContacts } from "../../app/operations";
+import { getFilteredContacts } from "../../redux/selectors";
+import { deleteItem } from "../../redux/reducer";
+import { deleteContact, getContacts } from "../../redux/operations";
 import { List } from "@material-ui/core";
 import Loader from "react-loader-spinner";
 

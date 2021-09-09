@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getIsLoggedIn } from "../../app/selectors";
+import { getIsLoggedIn } from "../../redux/selectors";
 import UserMenu from "../UserMenu/UserMenu";
 import { AppBar, Tabs, Tab } from "@material-ui/core";
 

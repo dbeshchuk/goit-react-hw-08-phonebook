@@ -5,6 +5,7 @@ import {
   login,
   fetchCurrentUser,
   getContacts,
+  postContact,
 } from "./operations";
 
 const defaultState = {
@@ -55,6 +56,9 @@ export const mainSlice = createSlice({
     },
     [getContacts.fulfilled](state, action) {
       state.contacts.items = action.payload;
+    },
+    [postContact.fulfilled](state, action) {
+      state.contacts.items = [...state.contacts.items, action.payload];
     },
   },
 });
