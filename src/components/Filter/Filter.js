@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getFilter } from "../../app/selectors";
-import { setFilter } from "../../app/reducer";
+import { getFilter } from "../../redux/selectors";
+import { setFilter } from "../../redux/reducer";
 import { Input } from "@material-ui/core";
 
 const Filter = () => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { register } from "../app/operations";
+import { register } from "../redux/operations";
 import { TextField, Button } from "@material-ui/core";
 
 const styles = {

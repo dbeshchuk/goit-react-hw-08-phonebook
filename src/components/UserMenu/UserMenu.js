@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getEmail } from "../../app/selectors";
-import { logout } from "../../app/operations";
+import { getEmail } from "../../redux/selectors";
+import { logout } from "../../redux/operations";
 import { Button } from "@material-ui/core";
 
 const styles = {

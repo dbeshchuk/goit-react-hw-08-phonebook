@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../app/operations";
+import { login } from "../redux/operations";
 import { TextField, Button } from "@material-ui/core";
 
 const styles = {

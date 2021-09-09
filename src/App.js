@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { fetchCurrentUser } from "./app/operations";
+import { fetchCurrentUser } from "./redux/operations";
 import "./App.css";
 
 import HomePage from "./views/HomePage";
@@ -10,7 +10,7 @@ import LoginPage from "./views/LoginPage";
 import RegisterPage from "./views/RegisterPage";
 
 import NavigationBar from "./components/NavigationBar/NavigationBar";
-import { getIsLoggedIn } from "./app/selectors";
+import { getIsLoggedIn } from "./redux/selectors";
 import { Container } from "@material-ui/core";
 
 const App = () => {
@@ -18,7 +18,7 @@ const App = () => {
   const isLoggedIn = useSelector(getIsLoggedIn);
 
   useEffect(() => {
-    dispatch(fetchCurrentUser());
+    dispatch(fetchCurrentUser()).catch((error) => console.log(error));
   }, [dispatch]);
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getContacts, postContact } from "../../app/operations";
+import { postContact } from "../../redux/operations";
 import { TextField, Button } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
@@ -34,8 +34,6 @@ const ContactForm = () => {
     items.some((item) => item.name === name)
       ? alert(`${name} is already in contacts`)
       : await dispatch(postContact(newContact));
-
-    dispatch(getContacts());
 
     setName("");
     setNumber("");
